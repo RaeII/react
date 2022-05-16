@@ -1,10 +1,10 @@
 import React from "react";
 import Task from "./task";
 
-  export default ({tasks}) => {
+  export default ({tasks,taskClick}) => {
       return(
         <>
-           {tasks.map((task) => <Task task={task}></Task>)}
+           {tasks.map((task) => <Task task={task} taskClick={taskClick}></Task>)}
         </>
       )
 }
