@@ -24,12 +24,12 @@ import task from "./components/task";
     
     //click para concluir
     function taskClick(taskId){
-      const newTask = tasks.map((task) =>{
-          if(task.id === taskId) return {...task, completed: !task.completed}
-          return task;
-      })
+      
+       const newTask = tasks.map((task) =>{if(task.id === taskId) return {...task, completed: !task.completed} 
+       return task;})
+      
 
-      setTasks(newTask)
+     setTasks(newTask)
     }
 
      
