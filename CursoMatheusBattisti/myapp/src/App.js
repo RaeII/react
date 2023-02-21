@@ -1,19 +1,24 @@
 import './App.css';
 import HelloWord from './components/HelloWorld';
-import MyDogs from './components/MyDogs'
+import ListDogs from './components/2.props/ListDogs'
+import List from './components/1.fragments/List'
 
+
+/**
+ * - Utilizando props
+ * - Imagem (carregadas pela pasta public)
+ * 
+ */
 
 function App() {
-  
-  const pipi = 'pipi'
- 
+   
   return (
     <div className="App">
       <h1>Toma essa</h1>
       <HelloWord/>
-      <MyDogs dogName='Connor'/>
-      <MyDogs dogName={pipi} img={'./images/dogCaramelo.png'} cor='caramelo'/>
+      <ListDogs/>
       <p>Agora essa porra vai</p>
+      <List/>
     </div>
   );
 }
