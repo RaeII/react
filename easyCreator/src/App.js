@@ -7,6 +7,7 @@ import Home from "./routes/home"
 import Alerts from "./routes/alerts"
 import List from "./routes/list"
 import NotFound from "./routes/notFound"
+import SocketIO from "./components/socket.io/io";
 const App = () => {
   const [btnNav, setState] =  React.useState(0)
 
@@ -20,9 +21,9 @@ const App = () => {
       <>
         <AppBar />
         <Outlet />
+        <SocketIO />
         <BottomNavigation btnValue={btnNav}/>
       </>
-
     )
   }
 
@@ -48,8 +49,6 @@ const App = () => {
     }
   ])
   
-
-
   return(
     <RouterProvider router={router} />
   )

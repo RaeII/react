@@ -24,7 +24,6 @@ export default function SimpleBottomNavigation({btnValue}) {
             justifyContent: 'space-between',
             height:80,
           }}
-        showLabels
       >
         <Link style={{display:'flex'}} to="/" ><BottomNavigationAction label="" icon={<Puzzle index={btnValue}/>} /></Link>
         <Link style={{display:'flex'}} to="/alerts" ><BottomNavigationAction label="" icon={<Alert index={btnValue}/>} /></Link>
