@@ -1,59 +1,70 @@
-import React, { useState } from "react";
-import Tasks from "./components/tasks";
-import "./app.css"
-import AddTasks from "./components/add-tasks";
-//import task from "./components/task";
-import BottomNavigation from './components/navigation/BottomNavigation'
-
+/* eslint-disable no-unused-vars */
+import React,{ useEffect, useState,  useCallback } from "react";
  
-const App = () => {
 
-  const [tasks, setTasks] = useState([
-    {
-         id : 1,
-         title: "Correr",
-         completed: false,
-    },
-    {
-      id: 2,
-      title: "Flexão",
-      completed: true,
-    }
- ])
-  
- //click para concluir
- function taskClick(taskId){
-    console.log(navigator)
-    const newTask = tasks.map((task) =>{if(task.id === taskId) return {...task, completed: !task.completed} 
-    return task;})
-   
-  setTasks(newTask)
- }
-   
- //adiciona uma nova task no array
- function handleTaskAddition(taskTitle){
-   var lastElement = tasks.slice(-1)[0]
-   var lastId = +lastElement.id
-   const newTask = [
-     ...tasks,{
-       id:(lastId + 1),
-       title: taskTitle,
-       completed: false
-     }
-   ]
-   setTasks(newTask)         
- }
- //renderiza todas as tasks 
-  return(
-    <>
-      <div className="container">
-        <AddTasks TaskAdd={handleTaskAddition}/>
-        <Tasks tasks = {tasks} taskClick={taskClick} />
-          
+    // Componente filho que recebe uma função como prop
+  const ChildComponent = React.memo(({ onClick }) => {
+    console.log('ChildComponent renderizado');
+    return <button onClick={onClick}>Clique me</button>;
+  });
+
+  // Componente pai
+  function ParentComponent() {
+    const [count, setCount] = useState(0);
+    const [text, setText] = useState('');
+
+    // Sem useCallback
+    // const handleClick = () => {
+    //   setCount(count + 1);
+    // };
+
+    // Com useCallback
+    const handleClick = useCallback(() => {
+      setCount(prevCount => prevCount + 1);
+    }, []); // Array de dependências vazio
+
+    // useCallback com dependências
+    const expensiveCalculation = useCallback(() => {
+      console.log('Cálculo caro executado');
+      return count * 2;
+    }, [count]); // Depende de 'count'
+
+    // useCallback com dependências
+    const printLogCount = useCallback(() => {
+      console.log('COUNT',count *2)
+      handleClick()
+    },[count,handleClick]); // Depende de 'count'
+
+    useEffect(() => {
+      const result = expensiveCalculation();
+      console.log('Resultado do cálculo:', result);
+    }, [expensiveCalculation]);
+
+    return (
+      <div 
+        style={{
+          display:'flex',
+          alignItems:'center',
+          justifyContent:'center',
+          height:'100vh',
+          width:'100vw'
+        }}>
+        <div>
+
+          <input
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+          <p>Count: {count}</p>
+          <ChildComponent onClick={handleClick} />
+          <button onClick={printLogCount}>print log</button>;
+        </div>
+
       </div>
-      <BottomNavigation/>
-    </>
-  )
-}
+    );
+  }
 
-export default App
+
+
+export default ParentComponent
